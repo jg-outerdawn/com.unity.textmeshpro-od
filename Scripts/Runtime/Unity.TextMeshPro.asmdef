@@ -1,12 +1,25 @@
 {
     "name": "Unity.TextMeshPro",
+    "rootNamespace": "",
     "references": [],
-    "optionalUnityReferences": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
     "precompiledReferences": [],
     "autoReferenced": true,
-    "defineConstraints": []
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "Unity",
+            "expression": "[2022.3.161,2023.1)",
+            "define": "UNITY_XR_VISIONOS_SUPPORTED"
+        },
+        {
+            "name": "Unity",
+            "expression": "2023.3.0b4",
+            "define": "UNITY_XR_VISIONOS_SUPPORTED"
+        }
+    ],
+    "noEngineReferences": false
 }

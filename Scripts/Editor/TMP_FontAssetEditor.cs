@@ -177,6 +177,7 @@ namespace TMPro.EditorUtilities
         private SerializedProperty font_italicStyle_prop;
         private SerializedProperty font_tabSize_prop;
 
+        private SerializedProperty m_Locale_prop;
         private SerializedProperty m_FaceInfo_prop;
         private SerializedProperty m_GlyphTable_prop;
         private SerializedProperty m_CharacterTable_prop;
@@ -201,6 +202,7 @@ namespace TMPro.EditorUtilities
 
         public void OnEnable()
         {
+            m_Locale_prop = serializedObject.FindProperty("m_Locale");
             m_FaceInfo_prop = serializedObject.FindProperty("m_FaceInfo");
 
             font_atlas_prop = serializedObject.FindProperty("m_AtlasTextures").GetArrayElementAtIndex(0);
@@ -298,8 +300,15 @@ namespace TMPro.EditorUtilities
             float labelWidth = EditorGUIUtility.labelWidth;
             float fieldWidth = EditorGUIUtility.fieldWidth;
 
+            // ++ Outerdawn ++++++++++++++++++++++++++++++++++++++++++++++
+            GUI.Label(rect, new GUIContent("<b>Locale</b>"), TMP_UIStyleManager.sectionHeader);
+            EditorGUILayout.PropertyField(m_Locale_prop);
+            EditorGUILayout.Space();
+            // -- Outerdawn ----------------------------------------------
+
             // FACE INFO PANEL
             #region Face info
+            rect = EditorGUILayout.GetControlRect(false, 24);
             GUI.Label(rect, new GUIContent("<b>Face Info</b> - v" + m_fontAsset.version), TMP_UIStyleManager.sectionHeader);
 
             rect.x += rect.width - 132f;

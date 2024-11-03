@@ -24,6 +24,16 @@ namespace TMPro
     [Serializable][ExcludeFromPresetAttribute]
     public class TMP_FontAsset : TMP_Asset
     {
+        // ++ Outerdawn ++++++++++++++++++++++++++++++++++++++++++++++
+        public string locale
+        {
+            get { return m_Locale; }
+            internal set { m_Locale = value; }
+        }
+        [SerializeField]
+        private string m_Locale;
+        // -- Outerdawn ----------------------------------------------
+
         /// <summary>
         /// The version of the font asset class.
         /// Version 1.1.0 adds support for the new TextCore.FontEngine and Dynamic SDF system.
@@ -1505,7 +1515,7 @@ namespace TMPro
             // Resize the Atlas Texture to the appropriate size
             if (m_AtlasTextures[m_AtlasTextureIndex].width == 0 || m_AtlasTextures[m_AtlasTextureIndex].height == 0)
             {
-                m_AtlasTextures[m_AtlasTextureIndex].Resize(m_AtlasWidth, m_AtlasHeight);
+                m_AtlasTextures[m_AtlasTextureIndex].Reinitialize(m_AtlasWidth, m_AtlasHeight);
                 FontEngine.ResetAtlasTexture(m_AtlasTextures[m_AtlasTextureIndex]);
             }
 
@@ -1727,7 +1737,7 @@ namespace TMPro
             if (m_AtlasTextures[m_AtlasTextureIndex].width == 0 || m_AtlasTextures[m_AtlasTextureIndex].height == 0)
             {
                 //Debug.Log("Setting initial size of atlas texture used by font asset [" + this.name + "].");
-                m_AtlasTextures[m_AtlasTextureIndex].Resize(m_AtlasWidth, m_AtlasHeight);
+                m_AtlasTextures[m_AtlasTextureIndex].Reinitialize(m_AtlasWidth, m_AtlasHeight);
                 FontEngine.ResetAtlasTexture(m_AtlasTextures[m_AtlasTextureIndex]);
             }
 
@@ -2062,7 +2072,7 @@ namespace TMPro
             // Make sure atlas texture is readable.
             if (m_AtlasTextures[m_AtlasTextureIndex].isReadable == false)
             {
-                Debug.LogWarning("Unable to add the requested character to font asset [" + this.name + "]'s atlas texture. Please make the texture [" + m_AtlasTextures[m_AtlasTextureIndex].name + "] readable.", m_AtlasTextures[m_AtlasTextureIndex]);
+                Debug.LogWarning("Unable to add the requested character [" + unicode + "] to font asset [" + this.name + "]'s atlas texture. Please make the texture [" + m_AtlasTextures[m_AtlasTextureIndex].name + "] readable.", m_AtlasTextures[m_AtlasTextureIndex]);
 
                 k_TryAddCharacterMarker.End();
                 return false;
@@ -2071,7 +2081,7 @@ namespace TMPro
             // Resize the Atlas Texture to the appropriate size
             if (m_AtlasTextures[m_AtlasTextureIndex].width == 0 || m_AtlasTextures[m_AtlasTextureIndex].height == 0)
             {
-                m_AtlasTextures[m_AtlasTextureIndex].Resize(m_AtlasWidth, m_AtlasHeight);
+                m_AtlasTextures[m_AtlasTextureIndex].Reinitialize(m_AtlasWidth, m_AtlasHeight);
                 FontEngine.ResetAtlasTexture(m_AtlasTextures[m_AtlasTextureIndex]);
             }
 
@@ -2441,7 +2451,7 @@ namespace TMPro
             if (m_AtlasTextures[m_AtlasTextureIndex].width == 0 || m_AtlasTextures[m_AtlasTextureIndex].height == 0)
             {
                 //Debug.Log("Setting initial size of atlas texture used by font asset [" + this.name + "].");
-                m_AtlasTextures[m_AtlasTextureIndex].Resize(m_AtlasWidth, m_AtlasHeight);
+                m_AtlasTextures[m_AtlasTextureIndex].Reinitialize(m_AtlasWidth, m_AtlasHeight);
                 FontEngine.ResetAtlasTexture(m_AtlasTextures[m_AtlasTextureIndex]);
             }
 
@@ -2843,11 +2853,11 @@ namespace TMPro
 
             if (setAtlasSizeToZero)
             {
-                texture.Resize(0, 0, TextureFormat.Alpha8, false);
+                texture.Reinitialize(0, 0, TextureFormat.Alpha8, false);
             }
             else if (texture.width != m_AtlasWidth || texture.height != m_AtlasHeight)
             {
-                texture.Resize(m_AtlasWidth, m_AtlasHeight, TextureFormat.Alpha8, false);
+                texture.Reinitialize(m_AtlasWidth, m_AtlasHeight, TextureFormat.Alpha8, false);
             }
 
             // Clear texture atlas
